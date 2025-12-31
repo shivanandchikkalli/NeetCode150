@@ -1,3 +1,5 @@
+// won't work for long arrays.
+// Reason is foreach is on nums but not on the set
 public static int LongestConsecutive(int[] nums)
 {
     if (nums.Length == 0) return 0;
@@ -9,7 +11,7 @@ public static int LongestConsecutive(int[] nums)
             ints.Add(num);
 
     int returnValue = int.MinValue;
-    foreach (int num in nums)
+    foreach (int num in nums)           // should be foreach (int num in ints) to work for long arrays
     {
         if (!ints.Contains(num - 1))
         {

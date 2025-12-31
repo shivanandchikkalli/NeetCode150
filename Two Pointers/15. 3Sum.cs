@@ -5,7 +5,6 @@
         nums = nums.Order().ToArray();
 
         var result = new List<IList<int>>();
-        var firstNumberStorage = new HashSet<string>();
 
         for (int i = 0; i < nums.Length; i++)
         {
