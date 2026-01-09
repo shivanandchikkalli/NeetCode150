@@ -1,36 +1,60 @@
 public class Solution {
     public bool CheckInclusion(string s1, string s2) {
-        var set = new Dictionary<char, int>();
+        if (s1.Length > s2.Length)
+            return false;
+        else if (string.Compare(s1, s2) == 0)
+            return true;
+        
+        var set1 = new int[26];
+
+        var set2 = new int[26];
 
         foreach (var c in s1)
-        { 
-            if(!set.ContainsKey(c))
-                set.Add(c, 0);
-            set[c]++;
-        }
-
-        int k = s1.Length;
-        var dictCopy = new Dictionary<char, int>(set);
-
-        int offset = 0;
-
-        for (int i = 0; i < s2.Length; i++)
         {
-            if (dictCopy.ContainsKey(s2[i]) && dictCopy[s2[i]] > 0)
-            {
-                k--;
-                dictCopy[s2[i]]--;
-                if (k == 0)
-                    return true;
-            }
-            else
-            {
-                k = s1.Length;
-                i = offset;
-                offset++;
-                dictCopy = new Dictionary<char, int>(set);
-            }
+            set1[c - 97]++;
         }
+
+        int left = 0;
+        int right = 0;
+
+        while (right != s1.Length)
+        {
+            set2[s2[right] - 97]++;
+
+            right++;
+        }
+
+        int counter = 0;
+        int matchCount = 0;
+
+        for (; right < s2.Length; right++)
+        {
+            counter = 0;
+            matchCount = 0;
+            while (counter < 26)
+            {
+                if (set1[counter] == set2[counter])
+                    matchCount++;
+                counter++;
+            }
+            if (matchCount == 26)
+                return true;
+
+
+            set2[s2[left++] - 97]--;
+            set2[s2[right] - 97]++;
+        }
+
+        counter = 0;
+        matchCount = 0;
+        while (counter < 26)
+        {
+            if (set1[counter] == set2[counter])
+                matchCount++;
+            counter++;
+        }
+        if (matchCount == 26)
+            return true;
 
         return false;
     }
