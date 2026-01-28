@@ -33,17 +33,11 @@ public class Solution {
                 prevNode = newNode;
             }
 
-            if(l1 is not null)
-                l1 = l1.next;
-            
-            if(l2 is not null)
-                l2 = l2.next;
+            l1 = l1?.next;
+            l2 = l2?.next;
         }
         if (carry != 0)
-        {
-            var newNode = new ListNode(carry);
-            prevNode.next = newNode;
-        }
+            prevNode.next = new ListNode(carry); ;
 
         return newList;
     }
